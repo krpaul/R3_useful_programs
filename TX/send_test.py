@@ -7,6 +7,7 @@ Author: Brent Rubell for Adafruit Industries
 # Import Python System Libraries
 import time
 # Import RFM9x
+from digitalio import DigitalInOut, Direction, Pull
 import adafruit_rfm9x
 
 # Configure LoRa Radio
