@@ -28,11 +28,11 @@ nwkey = bytearray([ 0xE6, 0xA9, 0x3B, 0x39, 0xF4, 0x92, 0xE0, 0xFF, 0x44, 0x1C, 
 app = bytearray([ 0x4E, 0xF0, 0xFE, 0x88, 0xE3, 0xCD, 0x1F, 0xD3, 0x94, 0x9C, 0x17, 0xD6, 0x83, 0x6D, 0xB5, 0x76 ])
 
 # Initialize ThingsNetwork configuration
-ttn_config = TTN(devaddr, nwkey, app, country='CA')
+ttn_config = TTN(devaddr, nwkey, app, country='US')
 # Initialize lora object
 lora = TinyLoRa(spi, cs, irq, rst, ttn_config)
 # 2b array to store sensor data
-data_pkt = bytearray(2)
+data_pkt = None
 # time to delay periodic packet sends (in seconds)
 data_pkt_delay = 5.0
 
@@ -43,11 +43,8 @@ def send_pi_data_periodic():
     print('CPU:', CPU)
 
 def send_pi_data(data):
-    # Encode float as int
-    data = int(data * 100)
-    # Encode payload as bytes
-    data_pkt[0] = (data >> 8) & 0xff
-    data_pkt[1] = data & 0xff
+    # Encode 
+    data_pkt = bytearray(CPU, 'utf-8')
     # Send data packet
     lora.send_data(data_pkt, len(data_pkt), lora.frame_counter)
     lora.frame_counter += 1
@@ -66,4 +63,4 @@ while True:
     CPU = "HELLO RENERT"
     send_pi_data(CPU)
 
-    time.sleep(.1)
+    time.sleep(3)
