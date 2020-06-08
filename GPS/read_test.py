@@ -1,6 +1,5 @@
 #!/user/bin/env python3
-import time
-import serial
+import time, serial, pynmea2 as nmea
 
 ser = serial.Serial(
       port='/dev/ttyS0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
@@ -10,8 +9,11 @@ ser = serial.Serial(
       bytesize=serial.EIGHTBITS,
       timeout=1
 )
-counter=0
 
+data = None
 while True:
-    print(ser.readline())
-
+    line = str(ser.readline(), 'utf-8').strip()
+    if "GPGGA" in line:
+        data = nmea.parse(line)
+        print(data.latitude, data.longitude, data.altitude)
+  
