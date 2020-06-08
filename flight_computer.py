@@ -2,7 +2,7 @@
 import time, serial, pynmea2 as nmea, subprocess
 
 def take_photo():
-    filename = t.strftime('%x_%X').replace("/", "-")
+    filename = time.strftime('%x_%X').replace("/", "-")
     cmd = f"raspistill -vf -o ./pics/{filename}.jpeg"
     subprocess.call(cmd, shell=True)
 
