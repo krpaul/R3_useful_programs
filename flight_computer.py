@@ -1,8 +1,5 @@
 #!/user/bin/env python3
-import time, 
-       serial, 
-       pynmea2 as nmea, 
-       subprocess
+import time, serial, pynmea2 as nmea, subprocess
 
 def take_photo():
     filename = t.strftime('%x_%X').replace("/", "-")
