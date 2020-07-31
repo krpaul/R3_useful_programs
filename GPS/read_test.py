@@ -3,7 +3,7 @@ import time, serial, pynmea2 as nmea
 
 ser = serial.Serial(
       port='/dev/ttyS0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
-      baudrate = 9600,
+      baudrate = 4800,
       parity=serial.PARITY_NONE,
       stopbits=serial.STOPBITS_ONE,
       bytesize=serial.EIGHTBITS,
@@ -16,4 +16,5 @@ while True:
     if "GPGGA" in line:
         data = nmea.parse(line)
         print(data.latitude, data.longitude, data.altitude)
+        #print(data.__dict__)
   
